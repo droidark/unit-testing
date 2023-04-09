@@ -90,9 +90,69 @@ The MockitoExtension looks at the test class, finds member variables annotated w
 
 ---
 
-## Spring Boot Testing
+## Spring Boot Unit Testing
 
 ### Controller Layer
+Before doing a controller test is relevant to know some important annotations that help us to achieve the unit testing over the controller layer.
+
+#### @MockMvc
+`@MockMvc` is a testing framework in Java used to test Spring MVC applications. It provides a way to test controllers in isolation by simulating HTTP requests and verifying the responses received.
+
+`@MockMvc` allows you to write unit tests for your controllers without deploying the application to a server, thus making it faster and more efficient. With MockMvc, you can test the behavior of your controllers, check the status code and content of the response, and also validate the request parameters and headers.
+
+`@MockMvc` is a part of the Spring Test framework and is included in the spring-test module. It is widely used in the Spring ecosystem for testing web applications.
+
+#### @WebMvcTest
+The `@WebMvcTest` annotation is used for Spring MVC tests. It disables full autoconfiguration and instead applies only configuration relevant to MVC tests.
+> **_NOTE:_** The `@WebMvcTest` annotation autoconfigure `@MockMvc` instance as well.
+
+#### @MockBean
+`@MockBean` is an annotation in the Spring Framework used for unit testing. It is used to mock a bean that is part of the application context so that it can be replaced with a test double during testing.
+
+When `@MockBean` is used, the Spring context will replace the bean with a mock or a stub that can be used in the test. This allows you to test your code in isolation, without having to rely on other parts of the application.
+
+Follow the next example to do a controller unit testing:
+````java
+@WebMvcTest(ItemController.class)
+class ItemControllerTest {
+    
+    @MockBean
+    private ItemBusinessService service;
+    
+    @Test
+    void retrieveAllItems_basic() throws Exception {
+        when(service.getAllItems()).thenReturn(List.of(
+                Item.builder()
+                        .id(1)
+                        .name("Ball")
+                        .price(10)
+                        .quantity(100)
+                        .build()));
+
+        // GET call to "/all-items-from-database" that produces an application/json
+        RequestBuilder request = MockMvcRequestBuilders
+                .get("/all-items-from-database")
+                .accept(MediaType.APPLICATION_JSON);
+
+        mockMvc
+                .perform(request)
+                .andExpect(status().isOk())
+                // content() is the method who get the response from the controller
+                // so, content() can be used as actualResult
+                //
+                // Get the expected json response from a json file, so that is the expectedResult
+                .andExpect(content() // <- works as ACTUAL RESULT
+                        .json(fromFile("item-list.json"))) // <- works as EXPECTED RESULT
+                .andReturn();
+    }
+
+    // Method to get json content from json file and parse as String to compare against actual result.
+    @SneakyThrows
+    private String fromFile(String path) {
+        return new String(new ClassPathResource(path).getInputStream().readAllBytes(), StandardCharsets.UTF_8);
+    }
+}
+````
 
 
 ---
@@ -102,5 +162,3 @@ The MockitoExtension looks at the test class, finds member variables annotated w
 - Do not mock types you don’t own.
 - Don’t mock value objects.
 - Don’t mock everything
-
-
