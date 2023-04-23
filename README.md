@@ -29,7 +29,9 @@
 - [Coverage](#coverage)
     - [Difference between unit testing and coverage testing](#difference-between-unit-testing-and-coverage-testing)
 - [JaCoCo](#jacoco)
-
+  - [Configure JaCoCo](#configure-jacoco)
+  - [Get JaCoCo report](#get-jacoco-report)
+- [Advices](#advices)
 ---
 
 ## What is unit testing?
