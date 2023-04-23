@@ -1,7 +1,6 @@
 # UNIT TESTING IN JAVA
 ## Table of content
 - [What is unit testing?](#what-is-unit-testing)
-- [Difference between unit testing and coverage testing](#difference-between-unit-testing-and-coverage-testing)
 - [Junit](#junit)
   - [Junit most common annotations](#junit-most-common-annotations)
 - [Mockito](#mockito)
@@ -19,6 +18,17 @@
     - [@DataMongoTest](#datamongotest)
 - [Spring Boot Integration Testing](#spring-boot-integration-testing)
   - [What is integration testing?](#what-is-integration-testing)
+  - [Integration testing in Spring](#integration-testing-in-spring)
+    - [@SpringBootTest](#springboottest)
+    - [@DirtiesContext](#dirtiescontext)
+    - [Integration testing example in controller layer](#integration-testing-example-in-controller-layer)
+- [Testing frameworks](#testing-frameworks)
+  - [Hamcrest](#hamcrest)
+  - [AssertJ](#assertj)
+  - [JSONPath](#jsonpath)
+- [Coverage](#coverage)
+    - [Difference between unit testing and coverage testing](#difference-between-unit-testing-and-coverage-testing)
+- [JaCoCo](#jacoco)
 
 ---
 
@@ -28,17 +38,6 @@ Unit testing is a software testing technique where individual units or component
 Unit testing involves writing automated tests that exercise a unit of code, typically using a framework or tool that provides facilities for creating test cases, running tests, and reporting results. These tests are designed to verify that the unit behaves as expected under various input conditions, and that it produces the expected output and side effects.
 
 Unit testing is a critical part of the software development process as it helps developers catch bugs early in the development cycle, before they become more complex and costly to fix. It also helps to ensure that changes to the codebase do not introduce regressions, i.e., unintended changes in functionality. Overall, unit testing is an important practice for building reliable, maintainable, and scalable software systems.
-
-## Difference between unit testing and coverage testing
-Unit testing and coverage testing are two different types of software testing techniques that serve different purposes.
-
-Unit testing is a technique in which individual units or components of a software system are tested in isolation from the rest of the system. The primary goal of unit testing is to ensure that each unit of code works as intended and meets its specifications. This is achieved by creating and running automated tests that verify the behavior of the code under different conditions.
-
-Coverage testing, on the other hand, is a technique that measures how much of the codebase is covered by the tests. Coverage testing provides a quantitative measure of the degree to which the automated tests exercise the code. The idea is to ensure that the tests cover as much of the code as possible, so that any potential bugs or issues are more likely to be caught.
-
-In other words, unit testing focuses on testing the behavior of individual units of code, while coverage testing focuses on measuring the completeness of the test suite with respect to the codebase. While unit testing is a form of testing, coverage testing is a form of analysis.
-
-Overall, both unit testing and coverage testing are important techniques for ensuring the quality of software systems, but they serve different purposes and are complementary to each other.
 
 ---
 
@@ -71,7 +70,7 @@ JUnit is widely used in the Java development community, and has become an essent
 | `@Disabled`              | Used to [disable](https://junit.org/junit5/docs/current/user-guide/#writing-tests-disabling) a test class or test method; analogous to JUnit 4's `@Ignore`. Such annotations are not _inherited_.                                                                                                                                                                                                                                                                                                                                                                                                                     |
 | `@Timeout`               | Used to fail a test, test factory, test template, or lifecycle method if its execution exceeds a given duration. Such annotations are _inherited_.                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
 | `@ExtendWith`            | Used to [register extensions declaratively](https://junit.org/junit5/docs/current/user-guide/#extensions-registration-declarative). Such annotations are _inherited_.                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
-| `@RegisterExtension`     | Used to [register extensions programmatically](https://junit.org/junit5/docs/current/user-guide/#extensions-registration-programmatic) via fields. Such fields are _inherited_ unless they are _shadowed_. |
+| `@RegisterExtension`     | Used to [register extensions programmatically](https://junit.org/junit5/docs/current/user-guide/#extensions-registration-programmatic) via fields. Such fields are _inherited_ unless they are _shadowed_.                                                                                                                                                                                                                                                                                                                                                                                                            |
 
 ---
 
@@ -414,6 +413,17 @@ Statement coverage, for example, measures the percentage of executable statement
 
 Code coverage can be measured using a variety of tools, including code analysis tools, profiling tools, and test coverage tools. These tools can generate reports that show which lines of code have been executed by tests, and which lines have not.
 
+### Difference between unit testing and coverage testing
+Unit testing and coverage testing are two different types of software testing techniques that serve different purposes.
+
+Unit testing is a technique in which individual units or components of a software system are tested in isolation from the rest of the system. The primary goal of unit testing is to ensure that each unit of code works as intended and meets its specifications. This is achieved by creating and running automated tests that verify the behavior of the code under different conditions.
+
+Coverage testing, on the other hand, is a technique that measures how much of the codebase is covered by the tests. Coverage testing provides a quantitative measure of the degree to which the automated tests exercise the code. The idea is to ensure that the tests cover as much of the code as possible, so that any potential bugs or issues are more likely to be caught.
+
+In other words, unit testing focuses on testing the behavior of individual units of code, while coverage testing focuses on measuring the completeness of the test suite with respect to the codebase. While unit testing is a form of testing, coverage testing is a form of analysis.
+
+Overall, both unit testing and coverage testing are important techniques for ensuring the quality of software systems, but they serve different purposes and are complementary to each other.
+
 > **_NOTE:_** While code coverage is an important metric for assessing the quality of a test suite, it is not a guarantee of correctness. It is possible to have high code coverage but still have bugs in the program, or to have low code coverage but still have a correct program. Therefore, code coverage should be used in conjunction with other testing techniques, such as code reviews, static analysis, and manual testing, to ensure that software is of high quality.
 ---
 ## JaCoCo
@@ -428,7 +438,7 @@ One of the key features of **JaCoCo** is its ability to measure code coverage at
 
 The steps to configure **JaCoCo** are the next
 
-### Add plugin in Maven
+### Configure JaCoCo
 ```xml
 <!-- JACOCO -->
 <plugin>
@@ -471,7 +481,7 @@ The steps to configure **JaCoCo** are the next
 </plugin>
 ```
 
-### Execute Maven
+### Get JaCoCo report
 
 Execute `mvn clean install` to generate the JaCoCo report.
 
