@@ -11,6 +11,14 @@
 - [Spring Boot Unit Testing](#spring-boot-unit-testing)
   - [Controller Layer](#controller-layer)
     - [@MockMvc](#mockmvc)
+    - [@WebMvcTest](#webmvctest)
+    - [@MockBean](#mockbean)
+  - [Business Layer](#business-layer)
+  - [Repository Layer](#repository-layer)
+    - [@DataJpaTest](#datajpatest)
+    - [@DataMongoTest](#datamongotest)
+- [Spring Boot Integration Testing](#spring-boot-integration-testing)
+  - [What is integration testing?](#what-is-integration-testing)
 
 ---
 
@@ -234,7 +242,7 @@ public class ItemRepositoryTest {
 ---
 ## Spring Boot Integration Testing
 
-## What is integration testing?
+### What is integration testing?
 Integration testing is a software testing methodology that focuses on testing the interactions between different components or modules of a system, to ensure that they work together correctly as a whole. In other words, integration testing is used to test the integration or "glue" code that connects different parts of a system together.
 
 Integration testing is typically performed after unit testing and before system testing. During integration testing, individual modules or components of the system are combined and tested as a group, to ensure that they function correctly together. The purpose of integration testing is to identify and resolve any issues that arise from the interactions between different components, such as interface mismatches, communication problems, or data flow issues.
