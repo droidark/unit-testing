@@ -51,7 +51,7 @@ class ItemControllerTest {
 
     @Test
     void dummyItem_fromFile() throws Exception {
-        when(itemBusinessService.getHardcodedItem()).thenReturn(Item.builder().id(1).name("Ball").quantity(10).price(100).build());
+        when(itemBusinessService.getHardcodedItem()).thenReturn(Item.builder().id(1).name("Ball").quantity(100).price(10).build());
 
         RequestBuilder request = MockMvcRequestBuilders
                 .get("/item-from-business-service")
