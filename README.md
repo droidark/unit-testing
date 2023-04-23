@@ -1,4 +1,9 @@
 # UNIT TESTING IN JAVA
+## Table of content
+[What is unit testing?](##What is unit testing?)
+
+---
+
 ## What is unit testing?
 Unit testing is a software testing technique where individual units or components of a software system are tested in isolation from the rest of the system to ensure that they work correctly. In this approach, a unit is the smallest testable part of a software application, such as a function, method, or class.
 
@@ -462,3 +467,12 @@ Execute `mvn clean install` to generate the JaCoCo report.
 - Don’t mock value objects.
 - Don’t mock everything
 - Review [XUnit Test Patterns](http://xunitpatterns.com/) to know more about the different testing patterns.
+- Put focus on business layer and try to put in minimum the repository and controller layer.
+- Try to avoid launching Spring Test Context as mush as possible.
+- A good unit testing should be:
+  - **Fast:** One look at the test, and you know what is being tested!
+  - **Readable:** What happens if unit tests take a long time to run?
+  - **Isolated:** Fails only when there is an issue with code!
+  - **Run Often:**
+    - What is the use of having unit tests which are not run frequently?
+    - What happen if you don't commit code often?
